@@ -8,7 +8,7 @@ import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 import User from './models/User';
 
-mongoose.connect("mongodb+srv://dev:i2NRitD0NFDTt2Lr@moneypot.euzhx.mongodb.net/Moneypot?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://dev:@moneypot.euzhx.mongodb.net/Moneypot?retryWrites=true&w=majority", {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -34,4 +34,15 @@ app.use(passport.session());
 // Router
 app.post('/register', async (req: Request, res: Response) => {
   const passwordDigest = await bcrypt.hash(req.body.password, 10);
+  const newUser = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: passwordDigest
+  });
+  await newUser.save();
+  res.send("Success");
 });
+
+app.listen(3000, () => {
+  console.log("Server started");
+})
