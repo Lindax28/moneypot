@@ -5,6 +5,7 @@ import Homepage from './components/main/homepage';
 import Login from './components/session/login';
 import Signup from './components/session/signup';
 import Context from './components/session/context';
+import { userContext } from './components/session/context';
 
 function App() {
   return (

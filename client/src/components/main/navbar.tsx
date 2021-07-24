@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import "./navbar.css";
-import { myContext } from '../session/context';
+import { userContext } from '../session/context';
 
 export default function Navbar() {
-  const user = useContext(myContext);
+  const user = useContext(userContext);
   return (
     <div>
       <Link to="/">Home</Link>
