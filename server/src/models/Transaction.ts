@@ -1,4 +1,4 @@
-import { InterfaceTransaction } from "./../types/transaction"
+import { TransactionInterface } from "./../types/transaction"
 import { model, Schema } from "mongoose"
 
 const TransactionSchema: Schema = new Schema(
@@ -26,4 +26,4 @@ const TransactionSchema: Schema = new Schema(
   { timestamps: true }
 )
 
-export default model<InterfaceTransaction>("Transaction", TransactionSchema)
+export default model<TransactionInterface>("Transaction", TransactionSchema)

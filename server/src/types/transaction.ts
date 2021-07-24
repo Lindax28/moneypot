@@ -1,6 +1,6 @@
 import { Document } from "mongoose"
 
-export interface InterfaceTransaction extends Document {
+export interface TransactionInterface extends Document {
   user_id: number
   stock: string
   price: number
