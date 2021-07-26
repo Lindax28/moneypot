@@ -6,6 +6,7 @@ import Login from './components/session/login';
 import Signup from './components/session/signup';
 import Stock from './components/stock/stock';
 import History from './components/transactions/history';
+import Account from './components/transactions/account';
 import { userContext } from './components/session/context';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           {
             user ? (
               <>
+                <Route path='/account' component={Account} />
                 <Route path='/history' component={History} />
               </>
             ) : (

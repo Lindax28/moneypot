@@ -1,0 +1,40 @@
+.homepage {
+  background-image: url(../../images/candlesticks.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 80vh;
+}
+
+.homepage h1 {
+  text-align: center;
+  color: white;
+  padding-top: 10%;
+  line-height: 1.5;
+  font-size: 30px;
+}
+
+.homepage-searchbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1%;
+}
+
+.homepage-searchbar >input {
+  width: 20vw;
+  height: 5vh;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.homepage-searchbar >button {
+  width: 5vw;
+  height: 7vh;
+  font-size: 30px;
+  padding: 10px;
+}
+
+.homepage-searchbar >button:hover {
+  cursor: pointer;
+}

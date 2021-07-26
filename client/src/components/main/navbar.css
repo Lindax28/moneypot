@@ -1,0 +1,21 @@
+.navbar-full {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-links {
+  display: flex;
+}
+
+.navbar-links >* {
+  margin-right: 5vw;
+}
+
+.moneypot-logo {
+  height: 6vh;
+}
+
+.moneypot-name {
+  height: 6vh;
+}
