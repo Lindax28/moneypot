@@ -89,7 +89,7 @@ export default function Stock(props: any) {
           </>
         )
       )}
-      <Trade />
+      <Trade symbol={props.match.params.symbol}/>
     </div>
   )
 }

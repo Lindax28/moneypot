@@ -32,7 +32,6 @@ export default function Navbar() {
         {user ? (
           <>
             <Link to="/portfolio">Portfolio</Link>
-            <Link to="/history">History</Link>
             <Link onClick={logout} to="/logout">Logout</Link>
           </>
         ) : (

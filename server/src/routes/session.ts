@@ -4,6 +4,7 @@ import UserDbInterface from "../types/user";
 import passport from 'passport';
 import bcrypt from 'bcryptjs';
 import RequestWithUser from '../types/requestWithUser';
+const mongoose = require("mongoose");
 const router = express.Router();
 
 router.post('/register', async (req, res, next) => {
@@ -51,6 +52,12 @@ router.get("/logout", (req, res) => {
 
 router.get("/user", (req, res) => {
   return res.json(req.user);
+});
+
+router.get("/name", async (req: RequestWithUser, res: Response) => {
+  let user: UserDbInterface | undefined = req.user;
+  let dbUser = await User.findOne({ _id: mongoose.Types.ObjectId(user?.id) })
+  return res.json({name: dbUser?.name});
 });
 
 export default router;
