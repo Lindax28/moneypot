@@ -14,6 +14,7 @@ import sessionRoute from './routes/session';
 import portfolioRoute from './routes/portfolio';
 
 dotenv.config();
+console.log(process.env)
 mongoose.connect(`mongodb+srv://dev:${process.env.MONGO_PASSWORD}@moneypot.euzhx.mongodb.net/Moneypot?retryWrites=true&w=majority`, {
   useCreateIndex: true,
   useNewUrlParser: true,
@@ -86,6 +87,8 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(3000, () => {
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
   console.log("Server started");
 })
