@@ -3,7 +3,7 @@ import Transaction from '../models/Transaction';
 import PolygonClient from '../libs/polygon';
 import StockInterface from '../types/stock';
 import UserDbInterface from '../types/user';
-import RequestWithUser from '../types/requestwithuser';
+import RequestWithUser from '../types/requestWithUser';
 import User from '../models/User';
 import mongoose from 'mongoose';
 const router = express.Router();

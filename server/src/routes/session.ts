@@ -3,7 +3,7 @@ import User from '../models/User';
 import UserDbInterface from "../types/user";
 import passport from 'passport';
 import bcrypt from 'bcryptjs';
-import RequestWithUser from '../types/RequestWithUser';
+import RequestWithUser from '../types/requestWithUser';
 const router = express.Router();
 
 router.post('/register', async (req, res, next) => {
