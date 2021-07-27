@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
+import config from '../../config/keys';
 
 export default function Signup() {
   const [name, setName] = useState<string>("")
@@ -8,7 +9,7 @@ export default function Signup() {
   const [password, setPassword] = useState<string>("")
 
   const register = () => {
-    axios.post("http://localhost:3000/register", {
+    axios.post(`${config.API_URL}/register`, {
       name,
       email,
       password

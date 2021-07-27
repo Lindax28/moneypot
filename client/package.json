@@ -47,6 +47,11 @@
     "@types/react": "^17.0.14",
     "@types/react-router-dom": "^5.1.8"
   },
-  "presets": ["@babel/preset-react", "@babel/preset-env"],
-  "plugins": ["@emotion"]
+  "presets": [
+    "@babel/preset-react",
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    "@emotion"
+  ]
 }

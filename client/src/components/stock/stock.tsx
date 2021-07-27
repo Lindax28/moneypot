@@ -3,6 +3,7 @@ import Axios, { AxiosResponse } from 'axios';
 import ClipLoader from "react-spinners/ClipLoader";
 import StockInterface from "../../types/stock";
 import Trade from './trade';
+import config from '../../config/keys';
 
 export default function Stock(props: any) {
   const [stock, setStock] = useState<StockInterface>();
@@ -10,7 +11,7 @@ export default function Stock(props: any) {
 
   useEffect(() => {
     setLoading(true);
-    Axios.get(`http://localhost:3000/api/stocks/${props.match.params.symbol}`, {withCredentials: true})
+    Axios.get(`${config.API_URL}/api/stocks/${props.match.params.symbol}`, {withCredentials: true})
     .then((response: AxiosResponse) => {
       setLoading(false);
       setStock(response.data);

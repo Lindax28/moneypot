@@ -6,12 +6,13 @@ import { userContext } from '../session/context';
 import Searchbar from './searchbar';
 import Logo from '../../images/moneypot_logo.jpg';
 import Moneypot from '../../images/moneypot_name.jpg';
+import config from '../../config/keys';
 
 export default function Navbar() {
   const user = useContext(userContext);
 
   const logout = () => {
-    Axios.get("http://localhost:3000/logout", {
+    Axios.get(`${config.API_URL}/logout`, {
       withCredentials: true
     }).then(res => {
       if (res.data === "success") {

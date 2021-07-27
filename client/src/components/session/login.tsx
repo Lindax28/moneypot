@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
+import config from '../../config/keys';
 
 export default function Login() {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
 
   const login = () => {
-    axios.post("http://localhost:3000/login", {
+    axios.post(`${config.API_URL}/login`, {
       email,
       password
     }, {
@@ -19,14 +20,6 @@ export default function Login() {
       console.log("Failure");
     })
   }
-
-  // const getUser = () => {
-  //   axios.get("http://localhost:3000/user", {
-  //     withCredentials: true
-  //   }).then(res => {
-  //     console.log(res.data);
-  //   })
-  // }
 
   return (
     <div>

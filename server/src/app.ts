@@ -26,7 +26,7 @@ mongoose.connect(`mongodb+srv://dev:${process.env.MONGO_PASSWORD}@moneypot.euzhx
 // Middleware
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3001", credentials: true }))
+app.use(cors({ origin: process.env.BASE_URL, credentials: true }))
 app.use(
   session({
     secret: "password",
