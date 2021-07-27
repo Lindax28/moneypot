@@ -1,4 +1,4 @@
-import { UserDbInterface } from "./../types/user"
+import UserDbInterface from "./../types/user"
 import { model, Schema } from "mongoose"
 
 const UserSchema: Schema = new Schema(
@@ -16,6 +16,11 @@ const UserSchema: Schema = new Schema(
 
     password: {
       type: String,
+      required: true,
+    },
+    
+    cash_balance: {
+      type: Number,
       required: true,
     },
 

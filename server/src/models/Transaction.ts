@@ -1,4 +1,4 @@
-import { TransactionDbInterface } from "./../types/transaction"
+import TransactionDbInterface from "./../types/transaction"
 import { model, Schema } from "mongoose"
 
 const TransactionSchema: Schema = new Schema(

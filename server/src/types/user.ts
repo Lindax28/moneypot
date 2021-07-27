@@ -1,8 +1,10 @@
-import { Document } from "mongoose"
+import { Document } from "mongoose";
+import TransactionDbInterface from './transaction';
 
-export interface UserDbInterface extends Document {
-  _id: string;
+export default interface UserDbInterface extends Document {
   name: string;
   email: string;
   password: string;
+  cash_balance: number;
+  transactions: TransactionDbInterface[];
 }
