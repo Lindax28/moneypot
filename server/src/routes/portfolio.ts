@@ -1,18 +1,13 @@
-import express, { Request, Response } from 'express';
+import express, { Response } from 'express';
 import User from '../models/User';
 import UserDbInterface from "../types/user";
-import passport from 'passport';
-import bcrypt from 'bcryptjs';
+import PolygonClient from "../libs/polygon";
 import RequestWithUser from '../types/requestWithUser';
-import PolygonClient from '../libs/polygon';
-import StockInterface from '../types/stock';
-import Transaction from 'src/models/Transaction';
+import mongoose from "mongoose";
 const router = express.Router();
-const mongoose = require("mongoose");
 
 router.get("/balance/:symbol", async (req: RequestWithUser, res: Response) => {
   let user: UserDbInterface | undefined = req.user;
-  // let polygonClient = new PolygonClient();
 
   let dbUser = await User.findOne({ _id: mongoose.Types.ObjectId(user?.id) })
     .populate("transactions")
@@ -29,17 +24,50 @@ router.get("/balance/:symbol", async (req: RequestWithUser, res: Response) => {
     }
   }
 
-  // let balance = 0;
-
-  // if (transactions && transactions.length > 0) {
-  //   for (let i = 0; i < transactions.length; i++) {
-  //     let transaction = transactions[i];
-  //     let stockInfo = await polygonClient.getStock(transaction.stock.toUpperCase());
-  //     balance += stockInfo.results[0].close * transaction.quantity;
-  //   }
-  // }
-
   return res.json({ cash_balance: dbUser?.cash_balance, quantity });
+});
+
+
+router.get("/shares", async (req: RequestWithUser, res: Response) => {
+  let polygonClient = new PolygonClient();
+  let user: UserDbInterface | undefined = req.user;
+
+  let dbUser = await User.findOne({ _id: mongoose.Types.ObjectId(user?.id) })
+    .populate("transactions")
+    .exec();
+
+  let transactions = dbUser?.transactions;
+  let shares : any = {};
+  let price: any = {};
+
+  try {
+    if (transactions && transactions.length > 0) {
+      for (let i = 0; i < transactions.length; i++) {
+        let transaction = transactions[i];
+        if (shares[transaction.stock] > 0) {
+          shares[transaction.stock] += transaction.quantity;
+        } else {
+          shares[transaction.stock] = transaction.quantity;
+        }
+      }
+      let stocks = Object.keys(shares);
+      let stock;
+      for (let i = 0; i < stocks.length; i++) {
+        stock = stocks[i];
+        let stockInfo = await polygonClient.getStock(stock.toUpperCase());
+        price[stock] = stockInfo.results[0].close;
+      }
+      // Object.keys(shares).forEach(async (stock) => {
+      //   let stockInfo = await polygonClient.getStock(stock.toUpperCase());
+      //   price[stock] = stockInfo.results[0].close;
+      // });
+      return res.json({ shares, price, cash_balance: dbUser?.cash_balance });
+    }
+  } catch (err) {
+    console.warn(err);
+    return res.status(404).send();
+    }
+  return res.status(404).send();
 });
 
 export default router;

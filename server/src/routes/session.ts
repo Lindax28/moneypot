@@ -1,10 +1,10 @@
-import express, { Request, Response } from 'express';
+import express, { Response } from 'express';
 import User from '../models/User';
 import UserDbInterface from "../types/user";
 import passport from 'passport';
 import bcrypt from 'bcryptjs';
 import RequestWithUser from '../types/requestWithUser';
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const router = express.Router();
 
 router.post('/register', async (req, res, next) => {
