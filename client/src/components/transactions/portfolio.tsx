@@ -13,10 +13,10 @@ export default function Portfolio() {
     setLoading(true);
     Axios.get(`${config.API_URL}/api/portfolio/shares`, {withCredentials: true})
     .then((response: AxiosResponse) => {
-      setLoading(false);
       setShares(response.data.shares);
       setCash(response.data.cash_balance);
       setPrice(response.data.price);
+      setLoading(false);
     }, () => {
       setLoading(false);
     })
@@ -47,7 +47,7 @@ export default function Portfolio() {
             <li>Stock Value: ${toCurrency(stockValue())}</li>
             <li>Cash Balance: ${toCurrency(cash)}</li>
           </ul>
-          {/* <h3>Investments</h3>
+          <h3>Investments</h3>
           <ul>
             {Object.keys(shares).map((stock:string, idx) => (
               shares[stock] > 0 ? (
@@ -58,7 +58,7 @@ export default function Portfolio() {
                 </li>
               ) : (<div key={idx}></div>)
             ))}
-          </ul> */}
+          </ul>
         </>
       )}
     </div>

@@ -4,6 +4,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import Axios, { AxiosResponse } from 'axios';
 import config from '../../config/keys';
 import ClipLoader from "react-spinners/ClipLoader";
+import "./trade.css";
 
 export default function Trade(props: any) {
   const user = useContext(userContext);
@@ -92,7 +93,7 @@ export default function Trade(props: any) {
           )}
         </>
       ) : (
-        <Link to="/login">Log in to begin trading!</Link>
+        <Link className="login-to-trade" to="/login">Log in to begin trading!</Link>
       )}
     </div>
   )
