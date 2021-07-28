@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import config from '../../config/keys';
 

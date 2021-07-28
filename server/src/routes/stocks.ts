@@ -8,6 +8,7 @@ import User from '../models/User';
 import mongoose from 'mongoose';
 const router = express.Router();
 
+// Retrieve stock and company info from Polygon API request for a given stock symbol
 router.get("/:symbol", async (req: Request, res: Response) => {
   let symbol = req.params.symbol;
   let polygonClient = new PolygonClient();
@@ -45,6 +46,7 @@ router.get("/:symbol", async (req: Request, res: Response) => {
   return res.status(404).send();
 })
 
+// Validate buy/sell with user's cash balance then create transaction entry and update user cash balance.
 router.post("/trade", async (req: RequestWithUser, res: Response) => {
   let user: UserDbInterface | undefined = req.user;
   let polygonClient = new PolygonClient();
@@ -104,35 +106,5 @@ router.post("/trade", async (req: RequestWithUser, res: Response) => {
   }
   return res.status(400).send();
 })
-
-// router.get("/balance", async (req: RequestWithUser, res: Response) => {
-//   let polygonClient = new PolygonClient();
-//   let user: UserDbInterface | undefined = req.user;
-
-//   let dbUser = await User.findOne({ _id: mongoose.Types.ObjectId(user?.id) })
-//     .populate("transactions")
-//     .exec();
-
-//   let transactions = dbUser?.transactions;
-//   let stocks = new Set();
-//   transactions?.forEach(transaction => {
-//     stocks.add(transaction.stock.toUpperCase());
-//   })
-//   let balances: any = {};
-
-//   if (stocks && stocks.size > 0) {
-//     try {
-//       stocks.forEach(async (stock:string) => {
-//         let stockInfo = await polygonClient.getStock(stock);
-//         balances[stock] = stockInfo.results[0].close;
-//       })
-//       return res.json(balances);
-//     } catch (err) {
-//       console.warn(err);
-//       return res.status(404).send();
-//     }
-//   }
-//   return res.status(404).send();
-// });
 
 export default router;

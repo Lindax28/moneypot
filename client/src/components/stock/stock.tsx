@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Axios, { AxiosResponse } from 'axios';
 import ClipLoader from "react-spinners/ClipLoader";
 import StockInterface from "../../types/stock";

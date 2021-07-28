@@ -1,16 +1,12 @@
-import { userContext } from '../session/context';
-import { Link } from 'react-router-dom';
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import Axios, { AxiosResponse } from 'axios';
 import config from '../../config/keys';
 import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Portfolio() {
-  const user = useContext(userContext);
   const [cash, setCash] = useState<number>(0);
   const [shares, setShares] = useState<any>({});
   const [price, setPrice] = useState<any>({});
-  const [quantity, setQuantity] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -26,26 +22,45 @@ export default function Portfolio() {
     })
     }, [])
 
+  function toCurrency(amount: number) {
+    return amount.toLocaleString(undefined,{'minimumFractionDigits':2,'maximumFractionDigits':2})
+  }
+
+  function stockValue() {
+    let stocks = Object.keys(shares);
+    let total = 0;
+    stocks.forEach(stock => {
+      total += (shares[stock] * price[stock]);
+    })
+    return total;
+  }
+
   return (
     <div>
       <h1>Portfolio</h1>
-      <ul>
-        <li>Portfolio Value: </li>
-        <li>Stock Value: </li>
-        <li>Cash Balance: ${cash.toLocaleString(undefined,{'minimumFractionDigits':2,'maximumFractionDigits':2})}</li>
-      </ul>
-      <h3>Investments</h3>
-      <ul>
-        {Object.keys(shares).map((stock:string, idx) => (
-          shares[stock] > 0 ? (
-            <li key={idx}>
-              <div>{stock}</div>
-              <div>{shares[stock]}</div>
-              <div>{price[stock]}</div>
-            </li>
-          ) : (<></>)
-        ))}
-      </ul>
+      {loading ? (
+        <ClipLoader />
+      ) : (
+        <>
+          <ul>
+            <li>Portfolio Value: ${toCurrency(stockValue() + cash)}</li>
+            <li>Stock Value: ${toCurrency(stockValue())}</li>
+            <li>Cash Balance: ${toCurrency(cash)}</li>
+          </ul>
+          {/* <h3>Investments</h3>
+          <ul>
+            {Object.keys(shares).map((stock:string, idx) => (
+              shares[stock] > 0 ? (
+                <li key={idx}>
+                  <div>{stock}</div>
+                  <div>{shares[stock]}</div>
+                  <div>${toCurrency(price[stock])}</div>
+                </li>
+              ) : (<div key={idx}></div>)
+            ))}
+          </ul> */}
+        </>
+      )}
     </div>
   )
 }

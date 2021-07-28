@@ -7,6 +7,7 @@ import RequestWithUser from '../types/requestWithUser';
 import mongoose from "mongoose";
 const router = express.Router();
 
+// Register user by validating inputs and checking for existing email. All users begin with $10,000 cash balance
 router.post('/register', async (req, res, next) => {
 
   const { name, email, password } = req?.body;
@@ -16,7 +17,7 @@ router.post('/register', async (req, res, next) => {
   }
   User.findOne({ email }, async (err : Error, doc : UserDbInterface) => {
     if (err) throw err;
-    if (doc) res.status(400).json({"message": "User already exists"});
+    if (doc) res.status(400).json({"message": "Email already taken"});
     if (!doc) {
       const passwordDigest = await bcrypt.hash(password, 10);
       const newUser = new User({
@@ -40,6 +41,7 @@ router.post('/register', async (req, res, next) => {
 
 });
 
+// Login user with passport authentication
 router.post("/login", passport.authenticate("local"), function(req: RequestWithUser, res) {
   let user: UserDbInterface | undefined = req.user;
   return res.json({id: user?.id});
@@ -54,6 +56,7 @@ router.get("/user", (req, res) => {
   return res.json(req.user);
 });
 
+// Get name of current user
 router.get("/name", async (req: RequestWithUser, res: Response) => {
   let user: UserDbInterface | undefined = req.user;
   let dbUser = await User.findOne({ _id: mongoose.Types.ObjectId(user?.id) })
