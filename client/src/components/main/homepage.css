@@ -36,8 +36,9 @@
 .homepage-searchbar >input {
   width: 20vw;
   height: 5vh;
-  font-size: 16px;
+  font-size: 20px;
   padding: 6px;
+  padding-left: 10px;
 }
 
 .homepage-searchbar >button {
@@ -45,8 +46,16 @@
   height: 7vh;
   font-size: 30px;
   padding: 10px;
+  background-color: gold;
+  border: 1px solid goldenrod;
+  border-radius: 3px;
 }
 
 .homepage-searchbar >button:hover {
+  background-color: goldenrod;
   cursor: pointer;
+}
+
+.homepage-searchbar >button:active {
+  background-color: darkgoldenrod;
 }

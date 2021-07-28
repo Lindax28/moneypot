@@ -35,7 +35,7 @@ export default function Homepage() {
           <h1>Moneypot paper trading<br></br>Search for a stock symbol to get started </h1>
         )}
         <form className="homepage-searchbar" onSubmit={searchStock}>
-          <input type="text" placeholder="Stock Symbol (ex. AAPL, MSFT, FB)" onChange={e => setSymbol(e.target.value)}></input>
+          <input type="text" placeholder="Stock Symbol (ex. AAPL, MSFT)" onChange={e => setSymbol(e.target.value)}></input>
           <button type="submit"><AiOutlineSearch /></button>
         </form>
       </div>
