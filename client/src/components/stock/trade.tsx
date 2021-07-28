@@ -1,6 +1,6 @@
 import { userContext } from '../session/context';
 import { Link } from 'react-router-dom';
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Axios, { AxiosResponse } from 'axios';
 import config from '../../config/keys';
 import ClipLoader from "react-spinners/ClipLoader";
@@ -33,32 +33,38 @@ export default function Trade(props: any) {
 
   function handleBuy() {
     setError("");
-    Axios.post(`${config.API_URL}/api/stocks/trade`, {stock: props.symbol, quantity: buy}, {withCredentials: true})
-    .then((response: AxiosResponse) => {
-      setFeedback(true);
-      setClick(click + 1);
-    }, (res) => {
-      setError(res.response.data.message)
-    })
+    if (buy > 0) {
+      Axios.post(`${config.API_URL}/api/stocks/trade`, {stock: props.symbol, quantity: buy}, {withCredentials: true})
+      .then((response: AxiosResponse) => {
+        setFeedback(true);
+        setClick(click + 1);
+        setBuy(0);
+      }, (res) => {
+        setError(res.response.data.message)
+      })
+    }
   }
 
   function handleSell() {
     setError("");
-    Axios.post(`${config.API_URL}/api/stocks/trade`, {stock: props.symbol, quantity: -sell}, {withCredentials: true})
-    .then((response: AxiosResponse) => {
-      setFeedback(true);
-      setClick(click + 1);
-    }, (res) => {
-      setError(res.response.data.message)
-    })
+    if (sell > 0) {
+      Axios.post(`${config.API_URL}/api/stocks/trade`, {stock: props.symbol, quantity: -sell}, {withCredentials: true})
+      .then((response: AxiosResponse) => {
+        setFeedback(true);
+        setClick(click + 1);
+        setSell(0);
+      }, (res) => {
+        setError(res.response.data.message)
+      })
+    }
   }
 
   function showPopup() {
     if (feedback) {
       setTimeout(() => setFeedback(false), 3000);
       return (
-        <div>
-          <h3>Order completed</h3>
+        <div className="trade-popup">
+          <h3>Order completed!</h3>
         </div>
       )
     } else {
@@ -70,30 +76,32 @@ export default function Trade(props: any) {
     <div>
       {showPopup()}
       {user ? (
-        <>
+        <section className="trade-container">
           <h2>Trade</h2>
           {loading ? (
             <ClipLoader />
           ) : (
             <>
-              <div>Cash Available for Trading: ${cash.toLocaleString(undefined,{'minimumFractionDigits':2,'maximumFractionDigits':2})}</div>
-              <div>Shares of {props.symbol.toUpperCase()} owned: {quantity}</div>
-              <div>{error}</div>
-              <div>
-                Buy {props.symbol.toUpperCase()}
-                <input type="number" placeholder="Qty" onChange={e => setBuy(parseInt(e.target.value))}/>
-                <button onClick={handleBuy}>Buy</button>
+              <div className="trade-info">
+                <div>Cash Available for Trading: <span className="bold">${cash.toLocaleString(undefined,{'minimumFractionDigits':2,'maximumFractionDigits':2})}</span></div>
+                <div>Shares of {props.symbol.toUpperCase()} owned: <span className="bold">{quantity}</span></div>
               </div>
-              <div>
-                Sell {props.symbol.toUpperCase()}
-                <input type="number" placeholder="Qty" onChange={e => setSell(parseInt(e.target.value))}/>
-                <button onClick={handleSell}>Sell</button>
+              <div className="error">{error}</div>
+              <div className="trade-input">
+                <div className="buy-input">
+                  <input type="number" min="0" placeholder="Qty" onChange={e => setBuy(parseInt(e.target.value))}/>
+                  <button onClick={handleBuy}>Buy <span className="bold">{props.symbol.toUpperCase()}</span></button>
+                </div>
+                <div className="sell-input">
+                  <input type="number" min="0" placeholder="Qty" onChange={e => setSell(parseInt(e.target.value))}/>
+                  <button onClick={handleSell}>Sell <span className="bold">{props.symbol.toUpperCase()}</span></button>
+                </div>
               </div>
             </>
           )}
-        </>
+        </section>
       ) : (
-        <Link className="login-to-trade" to="/login">Log in to begin trading!</Link>
+        <Link className="login-to-trade" to="/login"><span>Log in to begin trading!</span></Link>
       )}
     </div>
   )

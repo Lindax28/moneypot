@@ -26,6 +26,7 @@ hr {
   justify-content: space-evenly;
   font-size: 18px;
   text-align: left;
+  margin-bottom: 20px;
 }
 
 .stock-info ul {

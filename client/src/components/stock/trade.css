@@ -1,15 +1,172 @@
+/* Logged In */
+.trade-container {
+  border: 1px solid goldenrod;
+  padding: 5vh;
+}
+
+.trade-info {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.error {
+  color: red;
+  margin: 10px;
+}
+
+.trade-input {
+  display: flex;
+  justify-content: center;
+}
+
+.buy-input, .sell-input {
+  padding: 10px;
+}
+
+.buy-input input {
+  font-size: 20px;
+  padding: 7px;
+  width: 30%;
+  border-radius: 10px;
+  border: 2px solid #66a266;
+}
+
+.buy-input input:focus {
+  outline: none;
+  border: 2px solid #006400;
+}
+
+.trade-input button {
+  margin-left: 5px;
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 7px;
+  text-align: center;
+  border: none;
+  color: #fff;
+  transition-duration: 0.4s;
+  overflow: hidden;
+  box-shadow: 0 3px 3px #193047;
+}
+
+.buy-input button {
+  background-color: #16a085;
+}
+
+.buy-input button:hover {
+  box-shadow: 0px 2px 3px 2px #1abc9c;
+}
+
+.buy-input button:active {
+  transform: translateY(5px);
+}
+
+.sell-input button {
+  background-color: #cf1919;
+}
+
+.sell-input button:hover {
+  box-shadow: 0px 2px 3px 2px #eb4d4d;
+}
+
+.sell-input button:active {
+  transform: translateY(5px);
+}
+
+.trade-input button:hover {
+  cursor: pointer;
+  background: #fff;
+  color: #000;
+}
+
+.sell-input input {
+  font-size: 20px;
+  padding: 7px;
+  width: 30%;
+  border-radius: 10px;
+  border: 2px solid #eb4d4d;
+}
+
+.sell-input input:focus {
+  outline: none;
+  border: 2px solid #cf1919;
+}
+
+.trade-popup {
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 13px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+/* Logged Out */
 .login-to-trade {
   text-decoration: none;
   font-size: 20px;
   letter-spacing: 0.5px;
-  border: 1px solid gray;
+  border: none;
   border-radius: 7px;
   padding: 15px;
   box-shadow: 3px 3px 10px 3px gray;
-  background-color: green;
+  background-color: #008000;
   color: white;
 }
 
+.login-to-trade span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.login-to-trade span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.login-to-trade:hover span {
+  padding-right: 25px;
+}
+
+.login-to-trade:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
 .login-to-trade:hover {
-  color: white;
+  background-color: #006600;
 }

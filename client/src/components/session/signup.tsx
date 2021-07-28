@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import config from '../../config/keys';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
