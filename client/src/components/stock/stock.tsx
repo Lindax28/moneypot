@@ -45,7 +45,9 @@ export default function Stock(props: any) {
   return (
     <div>
       {loading ? (
-      <ClipLoader />
+        <div className="spinner">
+          <ClipLoader />
+        </div>
       ) : (
         stock?.symbol ? (
           <section className="stock-container">

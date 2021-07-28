@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Logo from '../../images/moneypot_logo.jpg';
 import Moneypot from '../../images/moneypot_name.jpg';
+import "./session.css";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -54,17 +55,17 @@ export default function Signup() {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container className="session-container" component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <div>
+        <div className="session-logo">
           <Link href="/"><img className="moneypot-logo" src={Logo} alt="Moneypot Logo"/></Link>
           <Link href="/"><img className="moneypot-name" src={Moneypot} alt="Moneypot Name"/></Link>
         </div><br></br>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <h3>{error}</h3>
+        <h3 className="error-message">{error}</h3>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>

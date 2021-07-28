@@ -1,0 +1,14 @@
+.session-container {
+  margin-top: 15vh;
+}
+
+.error-message {
+  margin-top: 15px;
+  color: red;
+}
+
+.session-logo {
+  padding: 12px;
+  background-color: #1b1b1b;
+  border-radius: 50px;
+}

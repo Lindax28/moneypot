@@ -1,0 +1,39 @@
+.portfolio-container {
+  margin: 5vw;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.2px;
+  text-align: center;
+}
+
+.portfolio-container h1{
+  font-size: 35px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.portfolio-container ul{
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 5vh;
+}
+
+.portfolio-container ul .module-border-wrap{
+  max-width: 100%;
+  background: linear-gradient(to right, goldenrod, gray);
+  padding: 6px;
+}
+
+.portfolio-container ul .module{
+  display: flex;
+  justify-content: space-evenly;
+  background: white;
+  color: black;
+  padding: 2rem;
+}
+
+.portfolio-container h3 {
+  font-size: 25px;
+  margin: 50px;
+  margin-bottom: 25px;
+}

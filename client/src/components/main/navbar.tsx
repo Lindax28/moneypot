@@ -22,24 +22,26 @@ export default function Navbar() {
   }
 
   return (
-    <div className="navbar-full">
+    <div className="navbar-container">
       <div className="navbar-logo">
         <Link to="/"><img className="moneypot-logo" src={Logo} alt="Moneypot Logo"/></Link>
         <Link to="/"><img className="moneypot-name" src={Moneypot} alt="Moneypot Name"/></Link>
       </div>
-      <div className="navbar-links">
-        <Link to="/">Home</Link>
-        {user ? (
-          <>
-            <Link to="/portfolio">Portfolio</Link>
-            <Link onClick={logout} to="/logout">Logout</Link>
-          </>
-        ) : (
-          <>
-            <Link to="/register">Sign Up</Link>
-            <Link to="/login">Login</Link>
-          </>
-        )}
+      <div className="navbar-items">
+        <div className="navbar-links">
+          <Link to="/">Home</Link>
+          {user ? (
+            <>
+              <Link to="/portfolio">Portfolio</Link>
+              <Link onClick={logout} to="/logout">Logout</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/register">Sign Up</Link>
+              <Link to="/login">Sign In</Link>
+            </>
+          )}
+        </div>
         <Searchbar />
       </div>
     </div>

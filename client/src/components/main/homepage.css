@@ -24,8 +24,8 @@
 .homepage-searchbar >input {
   width: 20vw;
   height: 5vh;
-  font-size: 20px;
-  padding: 10px;
+  font-size: 16px;
+  padding: 6px;
 }
 
 .homepage-searchbar >button {
