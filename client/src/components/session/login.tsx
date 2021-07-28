@@ -11,8 +11,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Logo from '../../images/moneypot_logo.jpg';
-import Moneypot from '../../images/moneypot_name.jpg';
+import Logo from '../../images/moneypot_logo_white.jpeg';
+import Moneypot from '../../images/moneypot_name_white.jpeg';
 import "./session.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -58,10 +58,10 @@ export default function Login() {
     <Container className="session-container" component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <div className="session-logo">
-          <Link href="/"><img className="moneypot-logo" src={Logo} alt="Moneypot Logo"/></Link>
-          <Link href="/"><img className="moneypot-name" src={Moneypot} alt="Moneypot Name"/></Link>
-        </div><br></br>
+        <Link className = "session-logo" href="/">
+          <img className="moneypot-logo" src={Logo} alt="Moneypot Logo"/>
+          <img className="moneypot-name" src={Moneypot} alt="Moneypot Name"/>
+        </Link><br></br>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>

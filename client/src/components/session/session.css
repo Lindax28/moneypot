@@ -9,6 +9,8 @@
 
 .session-logo {
   padding: 12px;
-  background-color: #1b1b1b;
+  background-color: white;
   border-radius: 50px;
+  border: 1px solid lightgray;
+  margin-bottom: 20px;
 }

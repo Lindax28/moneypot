@@ -6,6 +6,18 @@
   height: 80vh;
 }
 
+.homepage-content {
+	width: 60%;
+	height: 60%;
+	background-color:rgba(0, 0, 0, 0.6);
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
 .homepage h1 {
   text-align: center;
   color: white;

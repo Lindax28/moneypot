@@ -14,7 +14,6 @@ import sessionRoute from './routes/session';
 import portfolioRoute from './routes/portfolio';
 
 dotenv.config();
-console.log(process.env)
 mongoose.connect(`mongodb+srv://dev:${process.env.MONGO_PASSWORD}@moneypot.euzhx.mongodb.net/Moneypot?retryWrites=true&w=majority`, {
   useCreateIndex: true,
   useNewUrlParser: true,
@@ -81,9 +80,11 @@ app.use("", sessionRoute);
 const path = require('path');
 // load static build folder in production
 if (process.env.NODE_ENV === "production") {
+  console.log("running in production");
   app.use(express.static("../client/build"));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+    let dir = path.join(__dirname, "../../client/build/index.html");
+    res.sendFile(dir);
   });
 }
 
