@@ -14,14 +14,18 @@ import sessionRoute from './routes/session';
 import portfolioRoute from './routes/portfolio';
 
 dotenv.config();
-mongoose.connect(`mongodb+srv://dev:${process.env.MONGO_PASSWORD}@moneypot.euzhx.mongodb.net/Moneypot?retryWrites=true&w=majority`, {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}, (err : Error) => {
+//mongoose.connect(`mongodb+srv://dev:${process.env.MONGO_PASSWORD}@moneypot.euzhx.mongodb.net/Moneypot?retryWrites=true&w=majority`, {
+mongoose.connect(`mongodb://localhost:27017`,
+  {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  (err: Error) => {
     if (err) throw err;
-    console.log("Connected to Mongo")
-});
+    console.log("Connected to Mongo");
+  }
+);
 
 // Middleware
 const app = express();

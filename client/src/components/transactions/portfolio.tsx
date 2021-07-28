@@ -38,12 +38,14 @@ export default function Portfolio() {
       setCash(response.data.cash_balance);
       setPrice(response.data.price);
       let stockList = Object.keys(response.data.shares);
+      let sharesCount = response.data.shares;
+      let sharesPrice = response.data.price;
       let currStock;
       let list = [];
       for (let i = 0; i < stockList.length; i++) {
         currStock = stockList[i];
-        if (shares[currStock] > 0) {
-          list.push(createData(currStock, shares[currStock], price[currStock]));
+        if (sharesCount[currStock] > 0) {
+          list.push(createData(currStock, sharesCount[currStock], sharesPrice[currStock]));
         }
       }
       setRows(list);
