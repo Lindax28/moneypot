@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useHistory } from 'react-router-dom';
-
+import "./navbar.css";
 
 export default function Searchbar() {
   const [symbol, setSymbol] = useState<string>("")
@@ -15,7 +15,7 @@ export default function Searchbar() {
   }
 
   return (
-    <form onSubmit={searchStock}>
+    <form className="navbar-searchbar" onSubmit={searchStock}>
       <input type="text" placeholder="Stock Symbol" onChange={e => setSymbol(e.target.value)}></input>
       <button type="submit"><AiOutlineSearch /></button>
     </form>
