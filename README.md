@@ -18,7 +18,7 @@ Moneypot was built using:
 
 ## Architectural Pattern and Design
 
-Moneypot was built using an MVC design pattern, separating the data model, business logic, and rendered view. 
+Moneypot was built using an MVC design pattern, separating the data model, controller logic, and rendered view. Mongoose was used to manage representations of data from the MongoDB database, as well as for schema validation. The backend routes provide the API (controller) that interfaces between the model and the view to accept requests from the view, manipulate the model, and send a response to the view. The React components are the views that are rendered to the user and allow the user to make changes to the model indirectly via the controller. This pattern provides a connected process with a separation of concerns that lends itself to better maintainability.
 
 ### Model
 The database schema consists of a users table and transactions table. Users have a name, email, password digest, cash balance, and list of references to transactions. New users are created with an initial $10,000 cash balance, which is updated each time a transaction is made. Transactions have a stock, price, quantity, and reference to a user. Stock purchases are denoted with a positive quantity and stock sales with negative.
@@ -41,6 +41,26 @@ When a user views a stock, the component makes an API request to `/api/portfolio
 To render a user's portfolio, the Portfolio component makes a GET request to `/api/portfolio/shares`, passing in the user credentials via cookies. The transactions list for the user is queried and populated with Mongoose, then a Polygon API request is made for each unique stock to retrieve its price. A dictionary for stock and price, and a dictionary for stock and quantity, along with the user's cash balance is returned as the response.
 
 ### View - Features and Technical Challenges
-Moneypot 
+1. Signup and Login
+The Signup and Login components render the view for the signup and login page, respectively. They consist of a form that prompts the user to enter a name, email, and password to create a new account or to login with email and password. These components make POST requests to the backend session APIs to create a new user or authenticate the user.
+2. Homepage
+The Homepage component renders a search bar to search for stocks and for signed-in users, a personalized greeting. When a search is made, users are directed to the url containing the symbol in the route parameters, which renders the Stock view.
+3. Stock and Trade
+The Stock component makes GET requests to the backend stock APIs to display stock and company information, as well as user information for the particular stock for authenticated users. The Trade component is nested in the Stock component and it allows users to buy or sell a specified number of shares, which results in a POST request to the backend stocks API. 
 
-## User Flow
+A challenge with the Trade component was that after stock is bought or sold, a re-render was necessary to update the user's stock information. However, a re-render was only desirable after a *successful* transaction. React's Effect hook takes an optional second argument, a dependency array that will initiate a re-render if any dependency changes. Thus, I added a `click` variable to the local state that was initialized at zero, and would only increment with every successful transaction. Then, I added the click variable to the dependency array.
+
+![Trade component code](/client/src/components/images/trade_component_code.png)
+
+4. Navbar and Searchbar
+The Navbar is a reusable component that appears on every page of the app. It contains the Moneypot logo, which can be clicked to return to the homepage. For logged in users, it contains navigation buttons to Home, Portfolio, and Logout. If not logged in, it contains navigation buttons to Home, Sign Up, and Sign In. It also contains the Searchbar nested component, which allows the user to search for a stock symbol, which directs the user to the Stock view.
+5. Portfolio
+The Portfolio component lists the user's portfolio value(total of stock and cash), stock value, and cash balance. It also provides a chart of the user's investments, with stock ticker, quantity, and current price. This component is built by making a GET request to the backend portfolio API upon initial render.
+
+A challenge with this component was a race condition that was caused by asynchronously setting the local state with React hooks. The Effect hook makes an axios request to query data from the backend API and the data needs some manipulation before it can be set to the local state. If the data is first set to state, then the state values are manipulated, they will evaluate to undefined. To overcome this, I created temporary variables within the Effect hook to store the response data from the axios request, then manipulated those variables and assigned the final values to the local state.
+
+![Portfolio component code](/client/src/components/images/portfolio_component_code.png)
+
+## User Flow and Design Decisions
+
+
