@@ -1,6 +1,6 @@
 # Moneypot
-![Moneypot icon logo](/client/src/components/images/moneypot_logo_white.png)
-![Moneypot logo](/client/src/components/images/moneypot_name_white.png)
+![Moneypot icon logo](/client/src/images/moneypot_logo_white.png)
+![Moneypot logo](/client/src/images/moneypot_name_white.png)
 
 [Moneypot Live Site](https://moneypot-app.herokuapp.com/)
 
@@ -35,7 +35,7 @@ Moneypot is integrated with Polygon APIs to request stock information and compan
 
 To display the stock and company information, the Stock component makes a GET request to the backend API, `/api/stocks/:symbol`, passing in the stock symbol through the route parameters and the user credentials via cookies. The API then makes two Polygon API requests- one to query for the stock information, and one for company information. Once all requested information is received, it is compiled into one JSON object and sent back as the HTTP response. If an error occurs, e.g., the requests per minute exceed the limit, a 404 status code is returned.
 
-![Stock backend route code](/client/src/components/images/stock_backend_route.png)
+![Stock backend route code](/client/src/images/stock_backend_route.png)
 
 When a user views a stock, the component makes an API request to `/api/portfolio/balance/:symbol` which responds with their cash balance and number of shares of the stock owned. To validate trades and update the database when a user buys/sells stock, the `/api/stocks/trade` backend route receives a payload with stock and quantity, along with user credentials. Using the user id, a Mongoose query retrieves the user from the database and Mongoose Query Population is used to populate the transactions array with transaction objects. If a user does not have a sufficient cash balance for a buy order or if a user does not have enough shares, determined from their transactions array, for a sell order, a 400 status and error message are returned. If successful, a new transaction is added to the database, the user's transaction array is updated, the user's cash balance is updated, and a response is sent with a 204 status code.
 
@@ -52,7 +52,7 @@ The Stock component makes GET requests to the backend stock APIs to display stoc
 
 A challenge with the Trade component was that after stock is bought or sold, a re-render was necessary to update the user's stock information. However, a re-render was only desirable after a *successful* transaction. React's Effect hook takes an optional second argument, a dependency array that will initiate a re-render if any dependency changes. Thus, I added a `click` variable to the local state that was initialized at zero, and would only increment with every successful transaction. Then, I added the click variable to the dependency array.
 
-![Trade component code](/client/src/components/images/trade_component_code.png)
+![Trade component code](/client/src/images/trade_component_code.png)
 
 #### Navbar and Searchbar
 The Navbar is a reusable component that appears on every page of the app. It contains the Moneypot logo, which can be clicked to return to the homepage. For logged in users, it contains navigation buttons to Home, Portfolio, and Logout. If not logged in, it contains navigation buttons to Home, Sign Up, and Sign In. It also contains the Searchbar nested component, which allows the user to search for a stock symbol, which directs the user to the Stock view.
@@ -61,7 +61,7 @@ The Portfolio component lists the user's portfolio value(total of stock and cash
 
 A challenge with this component was a race condition that was caused by asynchronously setting the local state with React hooks. The Effect hook makes an axios request to query data from the backend API and the data needs some manipulation before it can be set to the local state. If the data is first set to state, then the state values are manipulated, they will evaluate to undefined. To overcome this, I created temporary variables within the Effect hook to store the response data from the axios request, then manipulated those variables and assigned the final values to the local state.
 
-![Portfolio component code](/client/src/components/images/portfolio_component_code.png)
+![Portfolio component code](/client/src/images/portfolio_component_code.png)
 
 ## User Flow and Design Decisions
 
@@ -69,14 +69,14 @@ Many of the design elements included components from Material-UI, the React UI f
 
 1. Sign Up/Log In - 
 The signup and login pages were built using multiple Material-UI components for a clean, responsive layout. Since Moneypot was designed to allow users to browse stocks without creating an account, I wanted the search feature to be accessible from all pages. Although many sites omit the navbar from the signup and login pages, I decided to include the navbar so the search tool can be made accessible without an additional click to return to the homepage.
-![User flow step 1](/client/src/components/images/view1.png)
+![User flow step 1](/client/src/images/view1.png)
 2. Home - 
 The home page for authenticated users includes a welcome message with their name, which makes clear to the user that they are signed in. The home page is simple, with a few words of text and a large search bar for accessing the site's main feature.
-![User flow step 2](/client/src/components/images/view2.png)
+![User flow step 2](/client/src/images/view2.png)
 3. Stocks - 
 The stock details page lists details about the stock and company, without becoming too extensive. If no user is logged in, the bottom of the stocks page displays a button to navigate to the login page in order to trade the stock. If a user is logged in, only relevant information needed for trading this particular stock are provided- the user's cash balance and number of shares owned. When a transaction is successfully made, a toast notification briefly appears at the bottom of the page for two seconds, notifying the user that the order was completed. This notification was designed to be unintrusive and easy to disregard without requiring user interaction, e.g., clicking out of a modal in order to clear the message.
-![User flow step 3](/client/src/components/images/view3.png)
+![User flow step 3](/client/src/images/view3.png)
 4. Portfolio - 
 The user portfolio highlights the most important information at the top, the user's balances. Below that, a Material UI chart was used to detail the investments held by the user in a concise manner.
-![User flow step 4](/client/src/components/images/view4.png)
+![User flow step 4](/client/src/images/view4.png)
 
