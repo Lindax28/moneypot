@@ -1,6 +1,5 @@
 # Moneypot
-![Moneypot icon logo](/client/src/images/moneypot_logo_white.png)
-![Moneypot logo](/client/src/images/moneypot_name_white.png)
+![Moneypot logo](/client/src/images/moneypot_name_white.jpeg)
 
 [Moneypot Live Site](https://moneypot-app.herokuapp.com/)
 
