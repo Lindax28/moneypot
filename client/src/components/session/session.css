@@ -1,5 +1,5 @@
 .session-container {
-  margin-top: 15vh;
+  margin-top: 10vh;
 }
 
 .error-message {
@@ -12,5 +12,4 @@
   background-color: white;
   border-radius: 50px;
   border: 1px solid lightgray;
-  margin-bottom: 20px;
 }
