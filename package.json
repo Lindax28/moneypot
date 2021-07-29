@@ -17,8 +17,6 @@
     "url": "https://github.com/Lindax28/moneypot/issues"
   },
   "homepage": "https://moneypot-app.herokuapp.com",
-  "dependencies": {
-  },
-  "devDependencies": {
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
