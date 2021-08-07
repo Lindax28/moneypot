@@ -29,6 +29,7 @@ export default function Portfolio() {
   const [price, setPrice] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [rows, setRows] = useState<any>([]);
+  const [limit, setLimit] = useState<boolean>(false);
 
   useEffect(() => {
     setLoading(true);
@@ -50,8 +51,11 @@ export default function Portfolio() {
       }
       setRows(list);
       setLoading(false);
-    }, () => {
+    }, (err) => {
       setLoading(false);
+      if (err.response.status === 429) {
+        setLimit(true);
+      }
     })
     }, [])
 
@@ -75,6 +79,7 @@ export default function Portfolio() {
         <ClipLoader />
       ) : (
         <>
+          {limit ? (<p className="limit-message">Maximum API requests per minute has been reached. Please wait 1 minute and try again.</p>) : (<></>)}
           <ul>
             <div className="module-border-wrap">
               <div className="module">

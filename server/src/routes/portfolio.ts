@@ -63,8 +63,12 @@ router.get("/shares", async (req: RequestWithUser, res: Response) => {
     }
   } catch (err) {
     console.warn(err);
-    return res.status(404).send();
+    if (err.toString().includes("maximum requests")) {
+      return res.status(429).send();
+    } else {
+      return res.status(404).send();
     }
+  }
   return res.status(404).send();
 });
 

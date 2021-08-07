@@ -10,6 +10,7 @@ import "./stock.css";
 export default function Stock(props: any) {
   const [stock, setStock] = useState<StockInterface>();
   const [loading, setLoading] = useState<boolean>(true);
+  const [limit, setLimit] = useState<boolean>(false);
 
   useEffect(() => {
     setLoading(true);
@@ -17,8 +18,11 @@ export default function Stock(props: any) {
     .then((response: AxiosResponse) => {
       setLoading(false);
       setStock(response.data);
-    }, () => {
+    }, (err) => {
       setLoading(false);
+      if (err.response.status === 429) {
+        setLimit(true);
+      }
       setStock({
         symbol: "", 
         volume: 0, 
@@ -80,20 +84,30 @@ export default function Stock(props: any) {
               <Trade symbol={props.match.params.symbol}/>
           </section>
         ) : (
-          <section className="stock-container no-match-container">
-            <p>
-              No stock symbol matched your search: <span className="bold">{props.match.params.symbol}</span>
-            </p>
-            <ul className="common-stocks">
-              Check out some commonly searched stocks:
-              <li><Link to="/stock/aapl">AAPL</Link></li>
-              <li><Link to="/stock/msft">MSFT</Link></li>
-              <li><Link to="/stock/amzn">AMZN</Link></li>
-              <li><Link to="/stock/goog">GOOG</Link></li>
-              <li><Link to="/stock/fb">FB</Link></li>
-              <li><Link to="/stock/tsla">TSLA</Link></li>
-            </ul>
-          </section>
+          limit ? (
+            <section className="stock-container no-match-container">
+              <p>
+                Maximum API requests per minute has been reached.
+                <br></br><br></br>
+                Please wait 1 minute and try again.
+              </p>
+            </section>
+          ) : (
+            <section className="stock-container no-match-container">
+              <p>
+                No stock symbol matched your search: <span className="bold">{props.match.params.symbol}</span>
+              </p>
+              <ul className="common-stocks">
+                Check out some commonly searched stocks:
+                <li><Link to="/stock/aapl">AAPL</Link></li>
+                <li><Link to="/stock/msft">MSFT</Link></li>
+                <li><Link to="/stock/amzn">AMZN</Link></li>
+                <li><Link to="/stock/goog">GOOG</Link></li>
+                <li><Link to="/stock/fb">FB</Link></li>
+                <li><Link to="/stock/tsla">TSLA</Link></li>
+              </ul>
+            </section>
+          )
         )
       )}
     </div>
